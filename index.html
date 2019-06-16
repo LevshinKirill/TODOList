@@ -2,13 +2,20 @@
 <html>
     <head>
         <link  rel="stylesheet" type="text/css" href="src/index.css"></link>
+        <link  rel="stylesheet" type="text/css" href="src/custom-bootstrap.css"></link>
     </head>
     <body>
-        <div><input type="text" id="task_name_input"><button id="add_button">Добавить</button></div>
-        <br/>
-        <input type="text" placeholder="Поиск" id="search_input" >
-        <div id="task_list"></div>
-        <div><button id="clear_all_button">Отчистить все</button></div>
+        <div class="container" >
+            <h1 class="h1 text-center">TODO List</h1>
+            <br/>
+            <input type="text" id="search_input" class="form-control form-control-lg" placeholder="ENTER TASK NAME TO SEARCH!!!">
+            <div id="task_list"></div>
+            <br/>
+            <div class="control-panel">
+                <button id="add_button" class="btn btn-success btn-panel">ADD NEW TASK</button>
+                <button id="clear_all_button" class="btn btn-danger btn-panel">CLEAR ALL TASKS</button>
+            </div>
+        </div>
     </body>
     <script src="dist/main.js"></script>
 </html>
