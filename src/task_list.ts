@@ -1,7 +1,7 @@
 import Task from './task'
 
 export default class TaskList{
-    tasks : any[];
+    public tasks : any[];
 
     constructor(){
         if(localStorage.getItem("ItemsList")!==null && localStorage.getItem("ItemsList")!==undefined)
@@ -13,6 +13,7 @@ export default class TaskList{
             localStorage.setItem("ItemsList",JSON.stringify([]));
             this.tasks = [];
         };
+
     };
 
     searchByWord(word : string){

@@ -1,8 +1,12 @@
 import TaskList from './task_list'
 import Task from './task'
+
 let taskList = new TaskList();
 
-updateView(taskList.tasks);
+document.onload = new function(){
+    taskList = new TaskList;
+    updateView(taskList.tasks);
+};
 
 document.getElementById("clear_all_button")!.onclick = function(){   
     if(confirm("DELETE TASKS ?")){
@@ -34,12 +38,12 @@ function updateView(tasks: any[]){
         var isChecked = (tasks[i]._isComplete ===true) ? "checked" : "";
         document.getElementById("task_list")!.insertAdjacentHTML('afterbegin', 
         `<div>  
-            <input type="checkbox" onclick="`+ taskList.setActive(`+tasks[i]._id+`)+ `" ` + isChecked + `></input>
+            <input type="checkbox" onclick="taskList.setActive(`+ tasks[i]._id+ `)" ` + isChecked + `></input>
             <label>`+ tasks[i]._name +`</label>
             <button class="btn btn-large text-danger" onclick="
                 new function(){
                     parentNode.remove();
-                    `+ taskList.remove(`+ tasks[i]._id+`)+`
+                    taskList.remove(` + tasks[i]._id +`)
                     ;}">x</button>
             </div>`
         );
