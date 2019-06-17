@@ -1,10 +1,12 @@
 import Task from './task'
 
 export default class TaskList{
+    tasks : any[];
+
     constructor(){
         if(localStorage.getItem("ItemsList")!==null && localStorage.getItem("ItemsList")!==undefined)
         {
-            this.tasks = Array.from(JSON.parse(localStorage.getItem("ItemsList","Task")));
+            this.tasks = Array.from(JSON.parse(localStorage.getItem("ItemsList")));
         }
         else
         {
@@ -13,7 +15,7 @@ export default class TaskList{
         };
     };
 
-    searchByWord(word){
+    searchByWord(word : string){
         if(word!==""){
             var filteredTasks = [];
             this.tasks.forEach(function(task){
@@ -31,20 +33,20 @@ export default class TaskList{
     };
 
     clearAllTasks(){
-        localStorage.clear("ItemList");
+        localStorage.removeItem("ItemList");
         localStorage.setItem("ItemsList",JSON.stringify([]));
         this.tasks = [];
         console.log("ClearAllItems");
     };
 
-    add(name){
+    add(name: string){
         var newTask = new Task(name);
         this.tasks.push(newTask);
         localStorage.setItem("ItemsList",JSON.stringify(this.tasks));
     };
 
 
-    remove(id){
+    remove(id: string){
         for(var i = 0;i<this.tasks.length;i++){
             if(this.tasks[i]._id===id){
                 this.tasks.splice(i,1);
@@ -54,7 +56,7 @@ export default class TaskList{
         };
     };
 
-    setActive(id){
+    setActive(id: string){
         for(var i = 0;i<this.tasks.length;i++){
             if(this.tasks[i]._id===id){
                 this.tasks[i]._isComplete = !this.tasks[i]._isComplete;
