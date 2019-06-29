@@ -32,10 +32,9 @@ export default class TaskList {
     };
 
     clearAllTasks() {
-        localStorage.removeItem("ItemList");
-        localStorage.setItem("ItemsList", JSON.stringify([]));
-        this.tasks = [];
-        console.log("ClearAllItems");
+        localStorage.removeItem("ItemsList");
+        this.tasks = this.tasks.filter(x => x._isComplete === false);
+        localStorage.setItem("ItemsList", JSON.stringify(this.tasks));
     };
 
     add(name: string) {
@@ -44,14 +43,13 @@ export default class TaskList {
         localStorage.setItem("ItemsList", JSON.stringify(this.tasks));
     };
 
-
     remove(id: string) {
-        this.tasks = this.tasks.filter(x=>x._id !== id);
+        this.tasks = this.tasks.filter(x => x._id !== id);
         localStorage.setItem("ItemsList", JSON.stringify(this.tasks));
     };
 
     setActive(id: string) {
-        this.tasks.find(x=>x._id===id)._isComplete = !this.tasks.find(x=>x._id===id)._isComplete;
+        this.tasks.find(x => x._id === id)._isComplete = !this.tasks.find(x => x._id === id)._isComplete;
         localStorage.setItem("ItemsList", JSON.stringify(this.tasks));
     };
 
@@ -74,5 +72,4 @@ export default class TaskList {
         this.tasks.find(x => x._id === id)._deadline = Date.parse(date);
         localStorage.setItem("ItemsList", JSON.stringify(this.tasks));
     };
-
 }

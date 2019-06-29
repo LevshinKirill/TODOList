@@ -10,8 +10,7 @@ document.onload = new function () {
 document.getElementById("clear_all_button")!.onclick = function () {
     if (confirm("DELETE TASKS ?")) {
         taskList.clearAllTasks();
-        var tasklistDiv = document.getElementById("task_list");
-        tasklistDiv.innerHTML = "";
+        updateView(taskList.tasks);
     };
 };
 
@@ -33,7 +32,6 @@ function updateView(tasks: any[]) {
     let tasklistDiv = document.getElementById("task_list");
     tasklistDiv!.innerHTML = "";
     for (let i = 0; i < tasks.length; i++) {
-        let isChecked = (tasks[i]._isComplete === true) ? "checked" : "";
         let days;
         if (tasks[i]._deadline) {
             let date = Date.now() - tasks[i]._deadline;
@@ -43,10 +41,14 @@ function updateView(tasks: any[]) {
             }
             else {
                 days = " (Deadline)";
-            }
+                if (tasks[i]._isComplete === false) {
+                    tasks[i]._isComplete = true;
+                };
+            };
         } else {
             days = "";
         };
+        let isChecked = (tasks[i]._isComplete === true) ? "checked" : "";
         document.getElementById("task_list")!.insertAdjacentHTML('afterbegin',
             `<div id="div` + tasks[i]._id + `">  
                 <input type="checkbox"` + isChecked + ` id="setActive` + tasks[i]._id + `"></input>
@@ -81,7 +83,6 @@ function updateView(tasks: any[]) {
             };
         };
         if (tasks[i]._arr_subtask.length > 0) {
-            console.log(tasks[i]._arr_subtask.length);
             document.getElementById("div" + tasks[i]._id)!.insertAdjacentHTML('beforeend', '<h3>Subtasks</h3>');
             for (let y = 0; y < tasks[i]._arr_subtask.length; y++) {
                 let isChecked = (tasks[i]._arr_subtask[y]._isComplete === true) ? "checked" : "";
